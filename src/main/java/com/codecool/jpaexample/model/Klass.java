@@ -4,14 +4,29 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table (name = "Class")
 public class Klass {
+
+    @Id
     private String name;
+
+    @ElementCollection
+    @Column (name = "Student")
+    @OneToMany (mappedBy = "klass")
     private Set<Student> students = new HashSet<>();
 
-    public Klass() {}
+    @Enumerated (value = EnumType.STRING)
+    private CCLocation city;
+
+    public Klass() {
+
+    }
+
 
     public Klass(String name) {
         this.name = name;
+        this.city = CCLocation.KRAKOW;
     }
 
     public String getName() {
